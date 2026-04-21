@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Presidential Election</title>
+</head>
+<body>
+
+    <h1>Student Union Election</h1>
+    <h3>Position: President</h3>
+
+    <p><strong>Instructions:</strong> Tick ONE candidate only.</p>
+
+    <form id="voteForm">
+
+        <fieldset>
+            <legend>Choose your candidate</legend>
+
+            <input type="radio" name="president" value="Candidate 1"> Candidate 1 <br><br>
+            <input type="radio" name="president" value="Candidate 2"> Candidate 2 <br><br>
+            <input type="radio" name="president" value="Candidate 3"> Candidate 3 <br><br>
+            <input type="radio" name="president" value="Candidate 4"> Candidate 4 <br><br>
+            <input type="radio" name="president" value="Candidate 5"> Candidate 5 <br>
+
+        </fieldset>
+
+        <br>
+
+        <label>Voter Name:</label><br>
+        <input type="text" id="voterName"><br><br>
+
+        <label>Matric Number:</label><br>
+        <input type="text" id="matric"><br><br>
+
+        <input type="submit" value="Submit Vote">
+        <input type="reset" value="Clear Form">
+
+    </form>
+
+<script>
+const form = document.getElementById("voteForm");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const selected = document.querySelector('input[name="president"]:checked');
+
+    if(!selected){
+        alert("Please select a candidate");
+        return;
+    }
+
+    const matric = document.getElementById("matric").value.trim().toUpperCase();
+
+    if(!matric){
+        alert("Enter your matric number");
+        return;
+    }
+
+    let votedMatrics = JSON.parse(localStorage.getItem("votedMatrics")) || [];
+
+    if(votedMatrics.includes(matric)){
+        alert("You have already voted!");
+        return;
+    }
+
+    let votes = JSON.parse(localStorage.getItem("votes")) || {
+        "Candidate 1":0,
+        "Candidate 2":0,
+        "Candidate 3":0,
+        "Candidate 4":0,
+        "Candidate 5":0
+    };
+
+    votes[selected.value]++;
+
+    localStorage.setItem("votes", JSON.stringify(votes));
+
+    votedMatrics.push(matric);
+    localStorage.setItem("votedMatrics", JSON.stringify(votedMatrics));
+
+    alert("Vote submitted successfully!");
+
+});
+</script>
+<a href="results.html">
+<button type="button">End Vote</button>
+</a>
+</body>
+</html>

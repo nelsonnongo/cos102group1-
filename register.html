@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VoteHub - Register</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Register</h2>
+
+  <form>
+    <input type="text" placeholder="Full Name" required>
+    <input type="email" placeholder="Email Address" required>
+    <input type="password" placeholder="Password" required>
+    
+  </form>
+
+</div>
+<script>
+document.querySelector("form").addEventListener("submit", function(e){
+    e.preventDefault(); 
+
+    
+    let name = document.querySelector('input[type="text"]').value;
+    let email = document.querySelector('input[type="email"]').value;
+    let password = document.querySelector('input[type="password"]').value;
+
+    
+    if(name === "" || email === "" || password === ""){
+        alert("Please fill all fields");
+        return;
+    }
+
+    localStorage.setItem("userName", name);
+    localStorage.setItem("userEmail", email);
+});
+</script>\
+<a href="vote.html">
+  <button type="button">Register</button>
+</a>
+</body>
+</html>
